@@ -1,6 +1,7 @@
 # Game
 
 [![Travis](https://img.shields.io/travis/rust-lang/rust.svg)]()
+[![Github All Releases](https://img.shields.io/github/downloads/atom/atom/total.svg)]()
 
 La idea de este proyecto es realizar un videojuego muy simple para desarrollar habilidades software con C++ en el motor Unreal Engine.
 
