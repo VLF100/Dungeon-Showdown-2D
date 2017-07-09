@@ -1,7 +1,6 @@
 # Game
 
-La idea de este proyecto es realizar un videojuego muy simple para desarrollar habilidades software con C++ en el motor Unreal Engine.
-
+La idea de este proyecto es realizar un videojuego muy simple para desarrollar habilidades software con C++ en el motor Godot
 La evolución del proyecto sera iterativa, comenzando en el primer ciclo con un simple prototipo funcional en el que se pueda comprobar el correcto funcionamiento del juego, y sucesas iteraciones para añdir features hasta que se alcance un nivel que se vea adecuado para ser publicado.
 
 ## Descripción basica del juego
