@@ -21,31 +21,31 @@ En la wiki de este proyecto estaran detallados los mecanimos tecnicos del juego 
 
 ### Detalles tecnicos
 
- - [] Implementar resolucion de pantalla
+ - [ ] Implementar resolucion de pantalla
 
 ### Version inicial Alpha
 
- - [] Crear escenario y mover libremente el personaje
- - [] Dividir el escenario en casillas y mover el personaje de casilla en casilla
- - [] Añadir interfaz de usuario
+ - [ ] Crear escenario y mover libremente el personaje
+ - [ ] Dividir el escenario en casillas y mover el personaje de casilla en casilla
+ - [ ] Añadir interfaz de usuario
  
 ### Version Alpha 0.25
 
- - [] Diseñar sistema de vida y puntos tecnicos
- - [] Implementar pantalla de Game Over
+ - [ ] Diseñar sistema de vida y puntos tecnicos
+ - [ ] Implementar pantalla de Game Over
  
 ### Version Alpha 0.5
 
- - [] Implementar diseño de acciones y turnos
- - [] Implementar enemigos con una simple IA
+ - [ ] Implementar diseño de acciones y turnos
+ - [ ] Implementar enemigos con una simple IA
  
  ### Version inicial Beta
  
-  - [] Crear pantalla de inicio
-  - [] Implementar sistema de menus para elegir escenario
-  - [] Implementar sistema de menus para elegir personajes
+  - [ ] Crear pantalla de inicio
+  - [ ] Implementar sistema de menus para elegir escenario
+  - [ ] Implementar sistema de menus para elegir personajes
   
   ### Version Beta
   
-   - [] Implementar mas escenarios y enemigos y sistema de eleccion de nivel
-   - [] Mejorar IA de enemigos
+   - [ ] Implementar mas escenarios y enemigos y sistema de eleccion de nivel
+   - [ ] Mejorar IA de enemigos
