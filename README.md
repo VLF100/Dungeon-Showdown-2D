@@ -1,6 +1,6 @@
 # Game
 
-La idea de este proyecto es realizar un videojuego muy simple para desarrollar habilidades software con C++ en el motor Godot
+La idea de este proyecto es realizar un videojuego muy simple para desarrollar habilidades software con lua en el framework Love2D
 La evolución del proyecto sera iterativa, comenzando en el primer ciclo con un simple prototipo funcional en el que se pueda comprobar el correcto funcionamiento del juego, y sucesas iteraciones para añdir features hasta que se alcance un nivel que se vea adecuado para ser publicado.
 
 ## Descripción basica del juego
@@ -13,8 +13,8 @@ En la wiki de este proyecto estaran detallados los mecanimos tecnicos del juego 
 
 ## Objetivos que se pretenden cumplir
 
- * Crear un juego simple con el motor GODOT
- * Desarrollar habilidades de programacion en C++
+ * Crear un juego simple con el framework Love2D
+ * Desarrollar habilidades de programacion en lua
  * Aprender el proceso de creacion de videojuegos en su forma mas simple
  
 ## Plan de trabajo
