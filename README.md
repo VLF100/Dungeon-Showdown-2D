@@ -41,7 +41,7 @@ En la wiki de este proyecto estaran detallados los mecanimos tecnicos del juego 
  
  ### Version inicial Beta
  
-  - [ ] Crear pantalla de inicio
+  - [ ] Crear pantalla de inicio 
   - [ ] Implementar sistema de menus para elegir escenario
   - [ ] Implementar sistema de menus para elegir personajes
   
