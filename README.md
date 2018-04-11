@@ -39,13 +39,13 @@ En la wiki de este proyecto estaran detallados los mecanimos tecnicos del juego 
  - [ ] Implementar diseño de acciones y turnos
  - [ ] Implementar enemigos con una simple IA
  
- ### Version inicial Beta
+### Version inicial Beta
  
-  - [ ] Crear pantalla de inicio 
-  - [ ] Implementar sistema de menus para elegir escenario
-  - [ ] Implementar sistema de menus para elegir personajes
+ - [ ] Crear pantalla de inicio 
+ - [ ] Implementar sistema de menus para elegir escenario
+ - [ ] Implementar sistema de menus para elegir personajes
   
-  ### Version Beta
+### Version Beta
   
-   - [ ] Implementar mas escenarios y enemigos y sistema de eleccion de nivel
-   - [ ] Mejorar IA de enemigos
+ - [ ] Implementar mas escenarios y enemigos y sistema de eleccion de nivel
+ - [ ] Mejorar IA de enemigos
