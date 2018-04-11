@@ -1,9 +1,11 @@
+local state = 0 --Global state of the game
+
 function love.load()
     x, y, w, h = 20, 20, 60, 20
 
     states={}
     states[1] = "_MENU_"				require "menu"
-    states[2] = "_CHARACTER_SELECT_"
+    states[2] = "_CHARACTER_SELECT_"	require "character_select"
     states[3] = "_LEVEL_SELECT_"
 
     levels={}
@@ -11,7 +13,16 @@ function love.load()
     levels[2] = "_LEVEL_2_"
     levels[3] = "_LEVEL_3_"
 
-    actual = 1
+    player = {
+		grid_x = 256,
+		grid_y = 256,
+		act_x = 200,
+		act_y = 200,
+		speed = 10
+	}
+
+	first_state = 1
+	change_state(first_state)
 end
  
 function love.update(dt)
@@ -22,3 +33,7 @@ function love.draw()
 	_G[states[actual].."DRAW"]()
 end
 
+function change_state(next_state)
+	_G[states[next_state].."LOAD"]()
+	actual = next_state
+end
