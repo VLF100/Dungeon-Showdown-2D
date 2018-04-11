@@ -1,3 +1,7 @@
+---
+title: README
+---
+
 # Game
 
 La idea de este proyecto es realizar un videojuego muy simple para desarrollar habilidades software con lua en el framework Love2D
