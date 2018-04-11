@@ -1,1 +1,7 @@
 theme: jekyll-theme-architect
+
+languages: ["en", "es"]
+defaultLang: en
+languageNames:
+  es: Spanish
+  en: English
