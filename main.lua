@@ -1,6 +1,16 @@
 local state = 0 --Global state of the game
 
 function love.load()
+
+	flags = {}
+	flags["fullscreen"] = false
+	flags["centered"] = true
+	love.window.setMode(1280, 720, flags)
+	screen_width = love.graphics.getWidth()
+	screen_height = love.graphics.getHeight()
+
+	love.window.setMode(screen_width, screen_height-30, flags)
+
     x, y, w, h = 20, 20, 60, 20
 
     states={}

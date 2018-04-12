@@ -8,18 +8,18 @@ function _CHARACTER_SELECT_UPDATE(dt)
 end
  
 function _CHARACTER_SELECT_DRAW()
-	love.graphics.rectangle("fill", player.act_x, player.act_y, 32, 32)
+	love.graphics.rectangle("fill", player.act_x, player.act_y, 50, 50)
 end
 
 
 _CHARACTER_SELECT_KEYBINDINGS = function(key)
 	if key == "up" then
-		player.grid_y = player.grid_y - 32
+		player.grid_y = player.grid_y - 50
 	elseif key == "down" then
-		player.grid_y = player.grid_y + 32
+		player.grid_y = player.grid_y + 50
 	elseif key == "left" then
-		player.grid_x = player.grid_x - 32
+		player.grid_x = player.grid_x - 50
 	elseif key == "right" then
-		player.grid_x = player.grid_x + 32
+		player.grid_x = player.grid_x + 50
 	end
 end
