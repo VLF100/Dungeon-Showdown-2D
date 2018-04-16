@@ -23,14 +23,6 @@ function love.load()
     levels[2] = "_LEVEL_2_"
     levels[3] = "_LEVEL_3_"
 
-    player = {
-		grid_x = 256,
-		grid_y = 256,
-		act_x = 200,
-		act_y = 200,
-		speed = 10
-	}
-
 	first_state = 1
 	change_state(first_state)
 end
