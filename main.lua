@@ -1,6 +1,14 @@
 local state = 0 --Global state of the game
 
+
+require "characters_controllers/swordsman"
+
+
+
+
 function love.load()
+
+	animation = newAnimation(love.graphics.newImage("swordman.png"), 80, 63, 0.5)
 
 	flags = {}
 	flags["fullscreen"] = false
@@ -9,33 +17,79 @@ function love.load()
 	screen_width = love.graphics.getWidth()
 	screen_height = love.graphics.getHeight()
 
-	love.window.setMode(screen_width, screen_height-30, flags)
+	cellSize = 80
+	minCellX = 0
+	minCellY = 0
+	maxCellX = (1280/cellSize)-1
+	maxCellY = (720/cellSize)-1
 
-    x, y, w, h = 20, 20, 60, 20
+	char = generateSwordsman(0,0)
 
-    states={}
-    states[1] = "_MENU_"				require "menu"
-    states[2] = "_CHARACTER_SELECT_"	require "character_select"
-    states[3] = "_LEVEL_SELECT_"
+	enemy = {
 
-    levels={}
-    levels[1] = "_LEVEL_1_"
-    levels[2] = "_LEVEL_2_"
-    levels[3] = "_LEVEL_3_"
+		currentPos = {x = maxCellX, y = maxCellY},
 
-	first_state = 1
-	change_state(first_state)
+		startTurn = function(self)
+			love.keypressed = nil
+			self.currentPos.x = self.currentPos.x - 1
+			return self:endTurn();
+		end,
+
+		endTurn = function(self)
+			return nextTurn()
+		end
+	}
+
+	turns = {char,enemy}
+
+	turn = 2
+
+	nextTurn()
+
 end
- 
-function love.update(dt)
-	_G[states[actual].."UPDATE"](dt)
-end
- 
+
 function love.draw()
-	_G[states[actual].."DRAW"]()
+
+	--Set to white before drawing images from files
+	love.graphics.setColor(255,255,255,255);
+	
+	--local spriteNum = math.floor(animation.currentTime / animation.duration * #animation.quads) + 1
+    love.graphics.draw(char.animation.spriteSheet, char.animation.quads[1], char.currentPos.x * cellSize, char.currentPos.y * cellSize)
+
+	love.graphics.setColor(0, 1, 0, 1)
+	love.graphics.rectangle("fill", enemy.currentPos.x * cellSize, enemy.currentPos.y * cellSize, cellSize, cellSize)
 end
 
-function change_state(next_state)
-	_G[states[next_state].."LOAD"]()
-	actual = next_state
+function love.update(dt)
+    animation.currentTime = animation.currentTime + dt
+    if animation.currentTime >= animation.duration then
+        animation.currentTime = animation.currentTime - animation.duration
+    end
 end
+ 
+
+function nextTurn()
+	nextTurnChar = turns[(turn%2)+1]
+	turn = turn +1
+	return nextTurnChar:startTurn()
+end
+
+function newAnimation(image, width, height, duration)
+    local animation = {}
+    animation.spriteSheet = image;
+    animation.quads = {};
+ 
+    for y = 0, image:getHeight() - height, height do
+        for x = 0, image:getWidth() - width, width do
+            table.insert(animation.quads, love.graphics.newQuad(x, y, width, height, image:getDimensions()))
+        end
+    end
+ 
+    animation.duration = duration or 1
+    animation.currentTime = 0
+ 
+    return animation
+end
+ 
+ 
+
