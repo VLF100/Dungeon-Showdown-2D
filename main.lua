@@ -54,17 +54,16 @@ function love.draw()
 	love.graphics.setColor(255,255,255,255);
 	
 	--local spriteNum = math.floor(animation.currentTime / animation.duration * #animation.quads) + 1
-    love.graphics.draw(char.animation.spriteSheet, char.animation.quads[1], char.currentPos.x * cellSize, char.currentPos.y * cellSize)
+    love.graphics.draw(char.graphics.spriteSheet, char.graphics.quads[char.animation], char.currentPos.x * cellSize, char.currentPos.y * cellSize)
 
 	love.graphics.setColor(0, 1, 0, 1)
 	love.graphics.rectangle("fill", enemy.currentPos.x * cellSize, enemy.currentPos.y * cellSize, cellSize, cellSize)
 end
 
 function love.update(dt)
-    animation.currentTime = animation.currentTime + dt
-    if animation.currentTime >= animation.duration then
-        animation.currentTime = animation.currentTime - animation.duration
-    end
+
+	char:updateAnimation(dt)
+	
 end
  
 
