@@ -1,14 +1,6 @@
 local state = 0 --Global state of the game
 
-
-require "characters_controllers/swordsman"
-
-
-
-
 function love.load()
-
-	animation = newAnimation(love.graphics.newImage("swordman.png"), 80, 63, 0.5)
 
 	flags = {}
 	flags["fullscreen"] = false
@@ -20,59 +12,95 @@ function love.load()
 	cellSize = 80
 	minCellX = 0
 	minCellY = 0
-	maxCellX = (1280/cellSize)-1
-	maxCellY = (720/cellSize)-1
+	maxCellX = (1280/cellSize)-1 --16
+	maxCellY = (720/cellSize)-1 --9
 
-	char = generateSwordsman(0,0)
-
-	enemy = {
-
-		currentPos = {x = maxCellX, y = maxCellY},
-
-		startTurn = function(self)
-			love.keypressed = nil
-			self.currentPos.x = self.currentPos.x - 1
-			return self:endTurn();
-		end,
-
-		endTurn = function(self)
-			return nextTurn()
-		end
-	}
-
-	turns = {char,enemy}
-
-	turn = 2
-
-	nextTurn()
-
+	startbutton = {}
+	startbutton.graphics = {}
+	startbutton.graphics.spritesheet = love.graphics.newImage("startbutton.png")
+	startbutton.graphics.quads = {}
+	
+	startbutton.graphics.quads[1] = love.graphics.newQuad(0, 0, 170, 80, startbutton.graphics.spritesheet:getDimensions())
+	startbutton.graphics.quads[2] = love.graphics.newQuad(0, 80, 170, 80, startbutton.graphics.spritesheet:getDimensions())
+	
+	startbutton.graphics.duration = 1.2
+    startbutton.graphics.currentTime = 0
+	startbutton.graphics.state = 1
+	
+	startbutton.marked = true
+	startbutton.x = 13
+	startbutton.y = 5
+	
+	
+	exitbutton = {}
+	exitbutton.graphics = {}
+	exitbutton.graphics.spritesheet = love.graphics.newImage("exitbutton.png")
+	exitbutton.graphics.quads = {}
+	
+	exitbutton.graphics.quads[1] = love.graphics.newQuad(0, 0, 170, 80, exitbutton.graphics.spritesheet:getDimensions())
+	exitbutton.graphics.quads[2] = love.graphics.newQuad(0, 80, 170, 80, exitbutton.graphics.spritesheet:getDimensions())
+	
+	exitbutton.graphics.duration = 1.2
+    exitbutton.graphics.currentTime = 0
+	exitbutton.graphics.state = 1
+	
+	exitbutton.marked = false
+	exitbutton.x = 13
+	exitbutton.y = 6
+	
+	
+	buttonslist = {}
+	table.insert(buttonslist, startbutton)
+	table.insert(buttonslist, exitbutton)
+	
+	currentlyMarked = 1
+	
 end
 
 function love.draw()
 
 	--Set to white before drawing images from files
-	love.graphics.setColor(255,255,255,255);
+	--love.graphics.setColor(255,255,255,255);
 	
-	--local spriteNum = math.floor(animation.currentTime / animation.duration * #animation.quads) + 1
-    love.graphics.draw(char.graphics.spriteSheet, char.graphics.quads[char.animation], char.currentPos.x * cellSize, char.currentPos.y * cellSize)
+    --love.graphics.draw(char.graphics.spriteSheet, char.graphics.quads[char.animation], char.currentPos.x * --cellSize, char.currentPos.y * cellSize)
 
-	love.graphics.setColor(0, 1, 0, 1)
-	love.graphics.rectangle("fill", enemy.currentPos.x * cellSize, enemy.currentPos.y * cellSize, cellSize, cellSize)
+	for index,button in pairs(buttonslist) do 
+		love.graphics.draw(button.graphics.spritesheet, button.graphics.quads[button.graphics.state], button.x * cellSize, button.y * cellSize)
+	end
+	
+
+	
 end
 
 function love.update(dt)
 
-	char:updateAnimation(dt)
+	--char:updateAnimation(dt)
+	
+	for index,button in pairs(buttonslist) do 
+	
+		if button.marked == true then
+		
+			button.graphics.currentTime = button.graphics.currentTime + dt
+			
+			if button.graphics.currentTime >= button.graphics.duration then
+				button.graphics.currentTime = button.graphics.currentTime - startbutton.graphics.duration
+			end
+
+			button.graphics.state = math.floor(button.graphics.currentTime / button.graphics.duration * #button.graphics.quads) + 1
+			
+		else
+			button.graphics.state = 1
+		end
+		
+	end
+	
+	
+
 	
 end
- 
 
-function nextTurn()
-	nextTurnChar = turns[(turn%2)+1]
-	turn = turn +1
-	return nextTurnChar:startTurn()
-end
-
+-- Function to generate a sheet of animations
+-- Thanks to https://love2d.org/wiki/Tutorial:Animation
 function newAnimation(image, width, height, duration)
     local animation = {}
     animation.spriteSheet = image;
@@ -88,6 +116,19 @@ function newAnimation(image, width, height, duration)
     animation.currentTime = 0
  
     return animation
+end
+
+function love.keypressed(key)
+	if key == "down" then
+		buttonslist[currentlyMarked].marked = false
+		buttonslist[currentlyMarked+1].marked = true
+		currentlyMarked = currentlyMarked + 1
+	end
+	if key == "up" then
+		buttonslist[currentlyMarked].marked = false
+		buttonslist[currentlyMarked-1].marked = true
+		currentlyMarked = currentlyMarked - 1
+	end
 end
  
  
