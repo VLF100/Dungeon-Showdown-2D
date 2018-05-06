@@ -9,33 +9,63 @@ function love.load()
 	screen_width = love.graphics.getWidth()
 	screen_height = love.graphics.getHeight()
 
-	love.window.setMode(screen_width, screen_height-30, flags)
-
-    x, y, w, h = 20, 20, 60, 20
-
-    states={}
-    states[1] = "_MENU_"				require "menu"
-    states[2] = "_CHARACTER_SELECT_"	require "character_select"
-    states[3] = "_LEVEL_SELECT_"
-
-    levels={}
-    levels[1] = "_LEVEL_1_"
-    levels[2] = "_LEVEL_2_"
-    levels[3] = "_LEVEL_3_"
-
+	cellSize = 80
+	minCellX = 0
+	minCellY = 0
+	maxCellX = (1280/cellSize)-1 --16
+	maxCellY = (720/cellSize)-1 --9
+	
+	states={}
+	states[1] = "_MENU_"	require "menu"
+	
 	first_state = 1
+	
 	change_state(first_state)
+	
 end
- 
-function love.update(dt)
-	_G[states[actual].."UPDATE"](dt)
-end
- 
+
 function love.draw()
+
+	--Set to white before drawing images from files
+	--love.graphics.setColor(255,255,255,255);
+	
+    --love.graphics.draw(char.graphics.spriteSheet, char.graphics.quads[char.animation], char.currentPos.x * --cellSize, char.currentPos.y * cellSize)
+
 	_G[states[actual].."DRAW"]()
+	
+end
+
+function love.update(dt)
+
+	--char:updateAnimation(dt)
+	
+	_G[states[actual].."UPDATE"](dt)
+	
 end
 
 function change_state(next_state)
 	_G[states[next_state].."LOAD"]()
 	actual = next_state
 end
+
+-- Function to generate a sheet of animations
+-- Thanks to https://love2d.org/wiki/Tutorial:Animation
+function newAnimation(image, width, height, duration)
+    local animation = {}
+    animation.spriteSheet = image;
+    animation.quads = {};
+ 
+    for y = 0, image:getHeight() - height, height do
+        for x = 0, image:getWidth() - width, width do
+            table.insert(animation.quads, love.graphics.newQuad(x, y, width, height, image:getDimensions()))
+        end
+    end
+ 
+    animation.duration = duration or 1
+    animation.currentTime = 0
+ 
+    return animation
+end
+ 
+ 
+
