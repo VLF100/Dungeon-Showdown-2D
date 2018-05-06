@@ -28,6 +28,8 @@ function _MENU_LOAD()
 		button.x = menu_position_x
 		button.y = menu_position_y
 		
+		button.trigger = _G[name.."_trigger"]
+		
 		menu_position_y = menu_position_y + 1
 		
 		table.insert(buttonslist,button)
@@ -39,8 +41,18 @@ function _MENU_LOAD()
 	title.x = 0
 	title.y = 0
 	
+	background = {}
+	background.graphics = love.graphics.newImage("resources/menu/titlebackground.png")
+	
 	currentlyMarked = 1
 	buttonslist[currentlyMarked].marked = true
+	
+	about = {}
+	about.text = 	"Dungeon Showdown by Valkyrio100\n"..
+					"Credits:\n"..
+					"\tDungeon Tileset made by 0x72\n"..
+					"\tFont VCR OSD Mono made by Riciery Leal(mrmanet)"
+	about.enabled = false
 
 	love.keypressed = _MENU_KEYBINDINGS
 	
@@ -70,11 +82,19 @@ end
 
 function _MENU_DRAW(dt)
 
+	love.graphics.draw(background.graphics, 0, 0)
+	
 	love.graphics.draw(title.graphics, title.x * cellSize, title.y * cellSize)
 
 	for index,button in pairs(buttonslist) do 
 		love.graphics.draw(button.graphics.spritesheet, button.graphics.quads[button.graphics.state], button.x * cellSize, button.y * cellSize)
 	end
+	
+	if about.enabled == true then
+		--love.graphics.setColor(255,255,255,255)
+		love.graphics.print(about.text, 1 * cellSize, 5 * cellSize)
+	end
+	
 end
 
 _MENU_KEYBINDINGS = function(key)
@@ -92,4 +112,20 @@ _MENU_KEYBINDINGS = function(key)
 			currentlyMarked = currentlyMarked - 1
 		end
 	end
+	if key == "return" then
+		buttonslist[currentlyMarked].trigger()
+	end
+end
+
+--BUTTONS FUNCTIONS
+
+function startbutton_trigger()
+end
+
+function aboutbutton_trigger()
+	about.enabled = not about.enabled
+end
+
+function exitbutton_trigger()
+	love.event.quit(0)
 end

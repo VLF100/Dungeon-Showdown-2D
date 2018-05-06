@@ -15,6 +15,9 @@ function love.load()
 	maxCellX = (1280/cellSize)-1 --16
 	maxCellY = (720/cellSize)-1 --9
 	
+	font = love.graphics.newFont("resources/VCR_OSD_MONO_1.001.ttf", 18)
+	love.graphics.setFont(font)
+	
 	states={}
 	states[1] = "_MENU_"	require "menu"
 	
