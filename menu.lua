@@ -91,8 +91,14 @@ function _MENU_DRAW(dt)
 	end
 	
 	if about.enabled == true then
-		--love.graphics.setColor(255,255,255,255)
+
+		love.graphics.setColor(0.1882, 0.1137, 0.1529, 0.6)
+		love.graphics.rectangle("fill", 1 * cellSize - 20, 5 * cellSize - 20, 8 * cellSize, 3 * cellSize + 50 )
+		
+		love.graphics.setColor(255,255,255,255)
 		love.graphics.print(about.text, 1 * cellSize, 5 * cellSize)
+		
+		
 	end
 	
 end
