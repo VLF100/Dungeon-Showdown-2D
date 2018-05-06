@@ -11,41 +11,13 @@ El juego consistirá principalmente en combates por turnos en un entorno 2D. Tan
 
 En la wiki de este proyecto estaran detallados los mecanimos tecnicos del juego asi como los algoritmos y formulas utilizados para la realizacion del proyecto.
 
-## Objetivos que se pretenden cumplir
+## Goals
 
- * Crear un juego simple con el framework Love2D
- * Desarrollar habilidades de programacion en lua
- * Aprender el proceso de creacion de videojuegos en su forma mas simple
+ * Create a simple game using the framework Love2D
+ * Learn to program lua
+ * Learn the basics of how videogames work on an internal level
  
-## Plan de trabajo
+## About
 
-### Detalles tecnicos
-
- - [ ] Implementar resolucion de pantalla
-
-### Version inicial Alpha
-
- - [ ] Crear escenario y mover libremente el personaje
- - [ ] Dividir el escenario en casillas y mover el personaje de casilla en casilla
- - [ ] Añadir interfaz de usuario
- 
-### Version Alpha 0.25
-
- - [ ] Diseñar sistema de vida y puntos tecnicos
- - [ ] Implementar pantalla de Game Over
- 
-### Version Alpha 0.5
-
- - [ ] Implementar diseño de acciones y turnos
- - [ ] Implementar enemigos con una simple IA
- 
-### Version inicial Beta
- 
- - [ ] Crear pantalla de inicio 
- - [ ] Implementar sistema de menus para elegir escenario
- - [ ] Implementar sistema de menus para elegir personajes
-  
-### Version Beta
-  
- - [ ] Implementar mas escenarios y enemigos y sistema de eleccion de nivel
- - [ ] Mejorar IA de enemigos
+Font used - [VCR OSD MONO](https://www.dafont.com/es/vcr-osd-mono.font)
+Some assests taken from - [Dungeon Tileset](https://0x72.itch.io/16x16-dungeon-tileset)

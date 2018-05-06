@@ -14,46 +14,13 @@ function love.load()
 	minCellY = 0
 	maxCellX = (1280/cellSize)-1 --16
 	maxCellY = (720/cellSize)-1 --9
-
-	startbutton = {}
-	startbutton.graphics = {}
-	startbutton.graphics.spritesheet = love.graphics.newImage("startbutton.png")
-	startbutton.graphics.quads = {}
 	
-	startbutton.graphics.quads[1] = love.graphics.newQuad(0, 0, 170, 80, startbutton.graphics.spritesheet:getDimensions())
-	startbutton.graphics.quads[2] = love.graphics.newQuad(0, 80, 170, 80, startbutton.graphics.spritesheet:getDimensions())
+	states={}
+	states[1] = "_MENU_"	require "menu"
 	
-	startbutton.graphics.duration = 1.2
-    startbutton.graphics.currentTime = 0
-	startbutton.graphics.state = 1
+	first_state = 1
 	
-	startbutton.marked = true
-	startbutton.x = 13
-	startbutton.y = 5
-	
-	
-	exitbutton = {}
-	exitbutton.graphics = {}
-	exitbutton.graphics.spritesheet = love.graphics.newImage("exitbutton.png")
-	exitbutton.graphics.quads = {}
-	
-	exitbutton.graphics.quads[1] = love.graphics.newQuad(0, 0, 170, 80, exitbutton.graphics.spritesheet:getDimensions())
-	exitbutton.graphics.quads[2] = love.graphics.newQuad(0, 80, 170, 80, exitbutton.graphics.spritesheet:getDimensions())
-	
-	exitbutton.graphics.duration = 1.2
-    exitbutton.graphics.currentTime = 0
-	exitbutton.graphics.state = 1
-	
-	exitbutton.marked = false
-	exitbutton.x = 13
-	exitbutton.y = 6
-	
-	
-	buttonslist = {}
-	table.insert(buttonslist, startbutton)
-	table.insert(buttonslist, exitbutton)
-	
-	currentlyMarked = 1
+	change_state(first_state)
 	
 end
 
@@ -64,11 +31,7 @@ function love.draw()
 	
     --love.graphics.draw(char.graphics.spriteSheet, char.graphics.quads[char.animation], char.currentPos.x * --cellSize, char.currentPos.y * cellSize)
 
-	for index,button in pairs(buttonslist) do 
-		love.graphics.draw(button.graphics.spritesheet, button.graphics.quads[button.graphics.state], button.x * cellSize, button.y * cellSize)
-	end
-	
-
+	_G[states[actual].."DRAW"]()
 	
 end
 
@@ -76,27 +39,13 @@ function love.update(dt)
 
 	--char:updateAnimation(dt)
 	
-	for index,button in pairs(buttonslist) do 
+	_G[states[actual].."UPDATE"](dt)
 	
-		if button.marked == true then
-		
-			button.graphics.currentTime = button.graphics.currentTime + dt
-			
-			if button.graphics.currentTime >= button.graphics.duration then
-				button.graphics.currentTime = button.graphics.currentTime - startbutton.graphics.duration
-			end
+end
 
-			button.graphics.state = math.floor(button.graphics.currentTime / button.graphics.duration * #button.graphics.quads) + 1
-			
-		else
-			button.graphics.state = 1
-		end
-		
-	end
-	
-	
-
-	
+function change_state(next_state)
+	_G[states[next_state].."LOAD"]()
+	actual = next_state
 end
 
 -- Function to generate a sheet of animations
@@ -116,19 +65,6 @@ function newAnimation(image, width, height, duration)
     animation.currentTime = 0
  
     return animation
-end
-
-function love.keypressed(key)
-	if key == "down" then
-		buttonslist[currentlyMarked].marked = false
-		buttonslist[currentlyMarked+1].marked = true
-		currentlyMarked = currentlyMarked + 1
-	end
-	if key == "up" then
-		buttonslist[currentlyMarked].marked = false
-		buttonslist[currentlyMarked-1].marked = true
-		currentlyMarked = currentlyMarked - 1
-	end
 end
  
  
