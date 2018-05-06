@@ -5,7 +5,7 @@ function generateSwordsman(init_x,init_y)
 
 	Swordsman = getPlayableCharacter(init_x,init_y)
 	
-	Swordsman.graphics = newAnimation(love.graphics.newImage("swordman.png"), 80, 63, 0.5)
+	Swordsman.graphics = newAnimation(love.graphics.newImage("resources/swordman.png"), 80, 63, 0.5)
 
 	Swordsman.startTurn = function()
 		love.keypressed = function(key)

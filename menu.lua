@@ -50,8 +50,10 @@ function _MENU_LOAD()
 	about = {}
 	about.text = 	"Dungeon Showdown by Valkyrio100\n"..
 					"Credits:\n"..
-					"\tDungeon Tileset made by 0x72\n"..
-					"\tFont VCR OSD Mono made by Riciery Leal(mrmanet)"
+					"\tGraphics \"Dungeon Tileset\" by 0x72\n"..
+					"\tFont \"VCR OSD Mono\" made by Riciery Leal(mrmanet)\n"..
+					"\tMusic \"8bit Dungeon Level\" by Kevin MacLeod\n"
+					
 	about.enabled = false
 
 	love.keypressed = _MENU_KEYBINDINGS
@@ -126,6 +128,7 @@ end
 --BUTTONS FUNCTIONS
 
 function startbutton_trigger()
+	change_state(2)
 end
 
 function aboutbutton_trigger()

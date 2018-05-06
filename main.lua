@@ -6,8 +6,6 @@ function love.load()
 	flags["fullscreen"] = false
 	flags["centered"] = true
 	love.window.setMode(1280, 720, flags)
-	screen_width = love.graphics.getWidth()
-	screen_height = love.graphics.getHeight()
 
 	cellSize = 80
 	minCellX = 0
@@ -20,6 +18,11 @@ function love.load()
 	
 	states={}
 	states[1] = "_MENU_"	require "menu"
+	states[2] = "_BATTLE_"	require "battle"
+	
+	music = love.audio.newSource( 'resources/8bit Dungeon Level.mp3', 'stream' )
+	music:setLooping( true )
+	music:play()
 	
 	first_state = 1
 	
@@ -29,18 +32,11 @@ end
 
 function love.draw()
 
-	--Set to white before drawing images from files
-	--love.graphics.setColor(255,255,255,255);
-	
-    --love.graphics.draw(char.graphics.spriteSheet, char.graphics.quads[char.animation], char.currentPos.x * --cellSize, char.currentPos.y * cellSize)
-
 	_G[states[actual].."DRAW"]()
 	
 end
 
 function love.update(dt)
-
-	--char:updateAnimation(dt)
 	
 	_G[states[actual].."UPDATE"](dt)
 	
