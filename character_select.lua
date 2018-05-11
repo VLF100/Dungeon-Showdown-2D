@@ -11,7 +11,7 @@ function _CHARACTER_SELECT_LOAD()
 
 
 	player = {
-		grid_x = 256,
+		grid_x = 256,kk
 		grid_y = 256,
 		act_x = 200,
 		act_y = 200,
