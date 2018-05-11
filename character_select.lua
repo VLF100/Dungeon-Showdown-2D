@@ -11,7 +11,7 @@ function _CHARACTER_SELECT_LOAD()
 
 
 	player = {
-		grid_x = 256,kk
+		grid_x = 256,
 		grid_y = 256,
 		act_x = 200,
 		act_y = 200,
@@ -23,7 +23,7 @@ function _CHARACTER_SELECT_UPDATE(dt)
 	player.act_y = player.act_y - ((player.act_y - player.grid_y) * player.speed * dt)
 	player.act_x = player.act_x - ((player.act_x - player.grid_x) * player.speed * dt)
 end
-
+ 
 function _CHARACTER_SELECT_DRAW()
 	love.graphics.setColor(255,255,255,255);
 	love.graphics.draw(player_sprite,actual_quad,  player.act_x, player.act_y)
