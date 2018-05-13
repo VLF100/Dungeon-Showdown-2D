@@ -1,13 +1,13 @@
 
 require "characters_controllers/common_player"
 
-function generateSwordsman(init_x,init_y)
+function generateArcher(init_x,init_y)
 
-	Swordsman = getPlayableCharacter(init_x,init_y)
+	Archer = getPlayableCharacter(init_x,init_y)
 
-	Swordsman.graphics = newAnimation(love.graphics.newImage("resources/swordman.png"), 80, 63, 0.25)
+	Archer.graphics = newAnimation(love.graphics.newImage("resources/archer.png"), 80, 67, 0.75)
 
-	Swordsman.startTurn = function(self)
+	Archer.startTurn = function(self)
 		love.keypressed = function(key)
 			if key == "up" then
 				if self.currentPos.y > 0 then
@@ -36,14 +36,14 @@ function generateSwordsman(init_x,init_y)
 		end
 	end
 
-	Swordsman.endTurn = function()
+	Archer.endTurn = function()
 		return nextTurn()
 	end
 
-	Swordsman.state = "IDLE"
-	Swordsman.animation = 1
+	Archer.state = "IDLE"
+	Archer.animation = 1
 
-	Swordsman.updateAnimation = function(self,dt)
+	Archer.updateAnimation = function(self,dt)
 		if self.state == "IDLE" then
 			self.animation = 1
 		elseif self.state == "ATTACK" then
@@ -51,17 +51,16 @@ function generateSwordsman(init_x,init_y)
 			if self.graphics.currentTime >= self.graphics.duration then
 			    self.graphics.currentTime = self.graphics.currentTime - self.graphics.duration
 
-					if self.animation == 3 then
+					if self.animation == 2 then
 						self.state = "IDLE"
 						self.graphics.currentTime = 0
 					end
 			end
 
 			self.animation = math.floor(self.graphics.currentTime / self.graphics.duration * #self.graphics.quads) + 1
-
 		end
 	end
 
-	return Swordsman
+	return Archer
 
 end

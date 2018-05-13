@@ -128,7 +128,7 @@ end
 --BUTTONS FUNCTIONS
 
 function startbutton_trigger()
-	createBattle('Swordsman')
+	createBattle('Mage')
 	change_state(2)
 end
 

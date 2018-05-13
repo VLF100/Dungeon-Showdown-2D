@@ -1,13 +1,13 @@
 
 require "characters_controllers/common_player"
 
-function generateSwordsman(init_x,init_y)
+function generateMage(init_x,init_y)
 
-	Swordsman = getPlayableCharacter(init_x,init_y)
+	Mage = getPlayableCharacter(init_x,init_y)
 
-	Swordsman.graphics = newAnimation(love.graphics.newImage("resources/swordman.png"), 80, 63, 0.25)
+	Mage.graphics = newAnimation(love.graphics.newImage("resources/mage.png"), 80, 63, 0.75)
 
-	Swordsman.startTurn = function(self)
+	Mage.startTurn = function(self)
 		love.keypressed = function(key)
 			if key == "up" then
 				if self.currentPos.y > 0 then
@@ -36,14 +36,14 @@ function generateSwordsman(init_x,init_y)
 		end
 	end
 
-	Swordsman.endTurn = function()
+	Mage.endTurn = function()
 		return nextTurn()
 	end
 
-	Swordsman.state = "IDLE"
-	Swordsman.animation = 1
+	Mage.state = "IDLE"
+	Mage.animation = 1
 
-	Swordsman.updateAnimation = function(self,dt)
+	Mage.updateAnimation = function(self,dt)
 		if self.state == "IDLE" then
 			self.animation = 1
 		elseif self.state == "ATTACK" then
@@ -51,7 +51,7 @@ function generateSwordsman(init_x,init_y)
 			if self.graphics.currentTime >= self.graphics.duration then
 			    self.graphics.currentTime = self.graphics.currentTime - self.graphics.duration
 
-					if self.animation == 3 then
+					if self.animation == 2 then
 						self.state = "IDLE"
 						self.graphics.currentTime = 0
 					end
@@ -62,6 +62,6 @@ function generateSwordsman(init_x,init_y)
 		end
 	end
 
-	return Swordsman
+	return Mage
 
 end

@@ -1,4 +1,6 @@
 require "characters_controllers/swordsman"
+require "characters_controllers/archer"
+require "characters_controllers/mage"
 
 local characters = {}
 
