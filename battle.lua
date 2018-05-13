@@ -1,47 +1,32 @@
 require "characters_controllers/swordsman"
 
+local characters = {}
+
 function _BATTLE_LOAD()
 
-	char = generateSwordsman(0,0)
-	
-	enemy = {
-
-		currentPos = {x = maxCellX, y = maxCellY},
-
-		startTurn = function(self)
-			love.keypressed = nil
-			self.currentPos.x = self.currentPos.x - 1
-			return self:endTurn();
-		end,
-
-		endTurn = function(self)
-			return nextTurn()
-		end
-	}
-
-	turns = {char,enemy}
-
-	turn = 2
-	
 	nextTurn()
 
 end
 
 function _BATTLE_DRAW()
 
-	love.graphics.draw(char.graphics.spriteSheet, char.graphics.quads[char.animation], char.currentPos.x * cellSize, char.currentPos.y * cellSize)
-	
+	for index,character in pairs(characters) do
+		love.graphics.draw(character.graphics.spriteSheet, character.graphics.quads[character.animation], character.currentPos.x * cellSize, character.currentPos.y * cellSize)
+	end
+
 end
 
 function _BATTLE_UPDATE(dt)
 
-	char:updateAnimation(dt)
-	
+	for index,character in pairs(characters) do
+		character:updateAnimation(dt)
+	end
 end
 
-function startBattle (characters)
+function createBattle (playerClass,enemies)
 
-	char = generateSwordsman(0,0)
+	player = _G['generate'..playerClass](0,maxCellY-3)
+	table.insert(characters,player)
 
 	enemy = {
 
@@ -58,11 +43,9 @@ function startBattle (characters)
 		end
 	}
 
-	turns = {char,enemy}
+	turns = {player,enemy}
 
 	turn = 2
-		
-	nextTurn()
 
 end
 
@@ -71,4 +54,3 @@ function nextTurn()
 	turn = turn +1
 	return nextTurnChar:startTurn()
 end
-
