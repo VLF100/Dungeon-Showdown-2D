@@ -27,7 +27,7 @@ end
 
 function createBattle (playerClass,enemies)
 
-	player = _G['generate'..playerClass](0,maxCellY-3)
+	player = _G['generate_'..playerClass](0,maxCellY-3)
 	table.insert(characters,player)
 
 	enemy = {

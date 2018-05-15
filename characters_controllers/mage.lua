@@ -1,11 +1,11 @@
 
 require "characters_controllers/common_player"
 
-function generateMage(init_x,init_y)
+function generate_mage(init_x,init_y)
 
 	Mage = getPlayableCharacter(init_x,init_y)
 
-	Mage.graphics = newAnimation(love.graphics.newImage("resources/mage.png"), 80, 63, 0.75)
+	Mage.graphics = newAnimation(love.graphics.newImage("resources/characters/mage.png"), 80, 63, 0.75)
 
 	Mage.startTurn = function(self)
 		love.keypressed = function(key)

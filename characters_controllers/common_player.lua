@@ -9,5 +9,3 @@ function getPlayableCharacter(init_x,init_y)
 	return PlayerCharacter
 
 end
-
-

@@ -1,11 +1,11 @@
 
 require "characters_controllers/common_player"
 
-function generateArcher(init_x,init_y)
+function generate_archer(init_x,init_y)
 
 	Archer = getPlayableCharacter(init_x,init_y)
 
-	Archer.graphics = newAnimation(love.graphics.newImage("resources/archer.png"), 80, 67, 0.75)
+	Archer.graphics = newAnimation(love.graphics.newImage("resources/characters/archer.png"), 80, 67, 0.75)
 
 	Archer.startTurn = function(self)
 		love.keypressed = function(key)

@@ -2,31 +2,51 @@ local state = 0 --Global state of the game
 
 function love.load()
 
+	--Screenmode
 	flags = {}
 	flags["fullscreen"] = false
 	flags["centered"] = true
 	love.window.setMode(1280, 720, flags)
 
+	--Grid size abstraction
 	cellSize = 80
 	minCellX = 0
 	minCellY = 0
 	maxCellX = (1280/cellSize)-1 --16
 	maxCellY = (720/cellSize)-1 --9
 
+	--Fonts
 	font = love.graphics.newFont("resources/VCR_OSD_MONO_1.001.ttf", 18)
 	love.graphics.setFont(font)
 
+	--States
 	states={}
 	states[1] = "_MENU_"            require "menu"
 	states[2] = "_SCENARIO_SELECT_" require "scenario_select"
 	states[3] = "_BATTLE_"          require "battle"
 
+	--List of playable characters
+	playable = {}
+	table.insert(playable,"swordsman")
+	table.insert(playable,"archer")
+	table.insert(playable,"mage")
+	table.insert(playable,"empty")
+	table.insert(playable,"empty")
+	table.insert(playable,"empty")
+	table.insert(playable,"empty")
+	table.insert(playable,"empty")
+	table.insert(playable,"empty")
+	table.insert(playable,"empty")
+	table.insert(playable,"empty")
+	table.insert(playable,"empty")
+
+	--Music
 	music = love.audio.newSource( 'resources/8bit Dungeon Level.mp3', 'stream' )
 	music:setLooping( true )
 	--music:play()
 
+	--Start of game
 	first_state = 1
-
 	change_state(first_state)
 
 end

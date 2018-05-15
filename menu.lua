@@ -1,3 +1,4 @@
+
 function _MENU_LOAD()
 
 	buttonsDeclaration = {
@@ -128,7 +129,7 @@ end
 --BUTTONS FUNCTIONS
 
 function startbutton_trigger()
-	createBattle('Mage')
+	createBattle(playable[3])
 	change_state(2)
 end
 

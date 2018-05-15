@@ -1,11 +1,11 @@
 
 require "characters_controllers/common_player"
 
-function generateSwordsman(init_x,init_y)
+function generate_swordsman(init_x,init_y)
 
 	Swordsman = getPlayableCharacter(init_x,init_y)
 
-	Swordsman.graphics = newAnimation(love.graphics.newImage("resources/swordman.png"), 80, 63, 0.25)
+	Swordsman.graphics = newAnimation(love.graphics.newImage("resources/characters/swordsman.png"), 80, 63, 0.25)
 
 	Swordsman.startTurn = function(self)
 		love.keypressed = function(key)
