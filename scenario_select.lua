@@ -8,10 +8,19 @@ function _SCENARIO_SELECT_LOAD()
 	characters_window.graphics =  love.graphics.newImage("resources/selectcharacter.png")
 	characters_window.x = 0
 	characters_window.y = 2
+	characters_window.selected = true
 	level_window = {}
 	level_window.graphics =  love.graphics.newImage("resources/selectlevel.png")
 	level_window.x = 8
 	level_window.y = 2
+	level_window.selected = true
+
+	--Menu movement
+	characters_window.right = level_window
+	level_window.left = characters_window
+
+	selected_window = {}
+	selected_window.graphics = love.graphics.newImage("resources/selected.png")
 
 	background = {}
 	background.graphics = love.graphics.newImage("resources/menu/titlebackground.png")
@@ -55,6 +64,8 @@ function _SCENARIO_SELECT_LOAD()
 
 	end
 
+	currently_selected = characters_window
+
 end
 
 function _SCENARIO_SELECT_UPDATE(dt)
@@ -65,6 +76,11 @@ function _SCENARIO_SELECT_DRAW()
 
 	love.graphics.draw(background.graphics, 0, 0)
 	love.graphics.draw(characters_window.graphics, characters_window.x * cellSize, characters_window.y * cellSize)
+	if(characters_window.selected) then
+			love.graphics.draw(selected_window.graphics, characters_window.x * cellSize, characters_window.y * cellSize)
+	elseif(level_window.selected) then
+			love.graphics.draw(selected_window.graphics, level_window.x * cellSize, level_window.y * cellSize)
+	end
 	love.graphics.draw(level_window.graphics, level_window.x * cellSize, level_window.y * cellSize)
 
 	draw_x = init_x * cellSize
@@ -82,5 +98,21 @@ end
 
 
 _SCENARIO_SELECT_KEYBINDINGS = function(key)
-
+	if key == "right" then
+		if(currently_selected.right ~= nil) then
+			currently_selected.selected = false
+			currently_selected = currently_selected.right
+			currently_selected.selected = true
+		end
+	end
+	if key == "left" then
+		if(currently_selected.left ~= nil) then
+			currently_selected.selected = false
+			currently_selected = currently_selected.left
+			currently_selected.selected = true
+		end
+	end
+	if key == "return" then
+		--currently_selected.trigger()
+	end
 end
