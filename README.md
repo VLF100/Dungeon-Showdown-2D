@@ -16,8 +16,9 @@ En la wiki de este proyecto estaran detallados los mecanimos tecnicos del juego 
  * Create a simple game using the framework Love2D
  * Learn to program lua
  * Learn the basics of how videogames work on an internal level
- 
+
 ## About
 
-Font used - [VCR OSD MONO](https://www.dafont.com/es/vcr-osd-mono.font)
-Some assests taken from - [Dungeon Tileset](https://0x72.itch.io/16x16-dungeon-tileset)
+* Font used - [VCR OSD MONO](https://www.dafont.com/es/vcr-osd-mono.font)
+* Some assests taken from - [Dungeon Tileset](https://0x72.itch.io/16x16-dungeon-tileset)
+* Music- [8bit Dungeon Level by Kevin MacLeod](https://www.youtube.com/watch?v=xobgCef5tjA)
