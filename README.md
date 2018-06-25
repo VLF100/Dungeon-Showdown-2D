@@ -1,21 +1,22 @@
 # Game
 
-La idea de este proyecto es realizar un videojuego muy simple para desarrollar habilidades software con lua en el framework Love2D
-La evolución del proyecto sera iterativa, comenzando en el primer ciclo con un simple prototipo funcional en el que se pueda comprobar el correcto funcionamiento del juego, y sucesas iteraciones para añdir features hasta que se alcance un nivel que se vea adecuado para ser publicado.
+The goal of this project is to develop a simple game as a way to improve my software skills as well as learning lua with the framework Love2D to develop games.
 
-## Descripción basica del juego
+The game will be developed by cycles, starting with the simplest version with the basic features and adding more as the time and ideas go on.
 
-El juego consistirá principalmente en combates por turnos en un entorno 2D. Tanto los personajes del jugador como los enemigos estaran situados en un plano frontal donde dichos actores se moveran y realizaran las acciones que deseen con un limite de movimientos. Al derrotar a los enemigos el escenario sera superado y se podra pasar al siguiente nivel.
+## Description of the game
 
-## Descripcion avanzada del juego
+The game is based around the RPG-style combat system using a 2D fighting game screen. The camera gives a view of the frontal plane of the scene where the character controlled by the player and the enemies are on opposites sides of the screen. Using a turn based system the characters will move and attack until one of the two parties is defeated.
 
-En la wiki de este proyecto estaran detallados los mecanimos tecnicos del juego asi como los algoritmos y formulas utilizados para la realizacion del proyecto.
+## Advanced description of the mechanisms of the game
+
+You can find more information about characters, enemies, and mechanics on the wiki of this project, as well as algorithms used to calculate things like damage number of turns.
 
 ## Goals
 
  * Create a simple game using the framework Love2D
  * Learn to program lua
- * Learn the basics of how videogames work on an internal level
+ * Learn the basics of how videogames work on an more profound way
 
 ## About
 
