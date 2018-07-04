@@ -4,11 +4,27 @@ local level_selected = ''
 function _SCENARIO_SELECT_LOAD()
 	love.keypressed = _SCENARIO_SELECT_KEYBINDINGS
 
+	selected_window = {}
+	selected_window.graphics = love.graphics.newImage("resources/selected.png")
+	selected_window.lock = function(self)
+		selected_window.graphics = love.graphics.newImage("resources/selectedlocked.png")
+	end
+	selected_window.unlock = function(self)
+		selected_window.graphics = love.graphics.newImage("resources/selected.png")
+	end
+
 	characters_window = {}
+	characters_window.name = "Characters Window"
 	characters_window.graphics =  love.graphics.newImage("resources/selectcharacter.png")
 	characters_window.x = 0
 	characters_window.y = 2
 	characters_window.selected = true
+	characters_window.trigger = function(self)
+		selected_window.lock()
+		selected_character.unlock()
+		currently_selected = selected_pchar
+		currently_selected.selected = true
+	end
 	level_window = {}
 	level_window.graphics =  love.graphics.newImage("resources/selectlevel.png")
 	level_window.x = 8
@@ -19,8 +35,14 @@ function _SCENARIO_SELECT_LOAD()
 	characters_window.right = level_window
 	level_window.left = characters_window
 
-	selected_window = {}
-	selected_window.graphics = love.graphics.newImage("resources/selected.png")
+	selected_character = {}
+	selected_character.graphics = love.graphics.newImage("resources/frameselected.png")
+	selected_character.lock = function(self)
+		selected_character.graphics = love.graphics.newImage("resources/frameselectedlocked.png")
+	end
+	selected_character.unlock = function(self)
+		selected_character.graphics = love.graphics.newImage("resources/frameselected.png")
+	end
 
 	background = {}
 	background.graphics = love.graphics.newImage("resources/menu/titlebackground.png")
@@ -31,8 +53,11 @@ function _SCENARIO_SELECT_LOAD()
 	x = init_x
 	y = init_y
 
+	list_char = {}
+
 	row = 0
 	column = 0
+	last_pchar = nil
 	for name,value in ipairs(playable) do
 		frame = {}
 		frame.graphics = love.graphics.newImage("resources/frame.png")
@@ -42,12 +67,29 @@ function _SCENARIO_SELECT_LOAD()
 		frame.adjustY = row * 30
 		if value ~= "empty" then
 			pchar = {}
+			pchar.name = value
+			pchar.selected = false
+			pchar.trigger = function(self)
+					selected_character.lock()
+					selected_window.unlock()
+					selected_pchar = self
+					currently_selected = characters_window
+					currently_selected.selected = true
+			end
 			pchar.graphics = love.graphics.newImage("resources/characters/"..value..".png")
 			pchar.quad = love.graphics.newQuad(0,0,80,80,pchar.graphics:getDimensions())
 			pchar.x = x
 			pchar.y = y
 			pchar.adjustX = column * 50 + 13
 			pchar.adjustY = row * 30 + 4
+			if(last_pchar ~= nil) then
+				last_pchar.right = pchar
+				pchar.left = last_pchar
+			else
+				pchar.selected = true
+				selected_pchar = pchar
+			end
+			last_pchar = pchar
 		end
 
 		x = x + 1
@@ -61,6 +103,8 @@ function _SCENARIO_SELECT_LOAD()
 
 		table.insert(characters_drawables,frame)
 		table.insert(characters_drawables,pchar)
+
+		table.insert(list_char,pchar)
 
 	end
 
@@ -91,6 +135,10 @@ function _SCENARIO_SELECT_DRAW()
 			love.graphics.draw(value.graphics, value.quad, value.x * cellSize + value.adjustX, value.y * cellSize + value.adjustY)
 		end
 
+		if value.selected == true then
+			love.graphics.draw(selected_character.graphics, value.x * cellSize + value.adjustX, value.y * cellSize + value.adjustY, 0, 1, 1, 24, 12)
+		end
+
 		draw_x = draw_x + 120
 	end
 
@@ -113,6 +161,10 @@ _SCENARIO_SELECT_KEYBINDINGS = function(key)
 		end
 	end
 	if key == "return" then
-		--currently_selected.trigger()
+		print(currently_selected.name)
+		currently_selected:trigger()
+	end
+	if key == "escape" then
+		currently_selected.window.unlock()
 	end
 end

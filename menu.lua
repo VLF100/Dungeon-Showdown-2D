@@ -129,7 +129,7 @@ end
 --BUTTONS FUNCTIONS
 
 function startbutton_trigger()
-	createBattle(playable[3])
+	createBattle(playable[1])
 	change_state(2)
 end
 
