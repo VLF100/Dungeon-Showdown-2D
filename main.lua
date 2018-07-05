@@ -40,6 +40,21 @@ function love.load()
 	table.insert(playable,"empty")
 	table.insert(playable,"empty")
 
+	--List of playable levels
+	levels = {}
+	table.insert(levels,"bat")
+	table.insert(levels,"empty")
+	table.insert(levels,"empty")
+	table.insert(levels,"empty")
+	table.insert(levels,"empty")
+	table.insert(levels,"empty")
+	table.insert(levels,"empty")
+	table.insert(levels,"empty")
+	table.insert(levels,"empty")
+	table.insert(levels,"empty")
+	table.insert(levels,"empty")
+	table.insert(levels,"empty")
+
 	--Music
 	music = love.audio.newSource( 'resources/8bit Dungeon Level.mp3', 'stream' )
 	music:setLooping( true )

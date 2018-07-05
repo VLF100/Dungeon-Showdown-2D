@@ -2,8 +2,15 @@ local player_selected = ''
 local level_selected = ''
 
 function _SCENARIO_SELECT_LOAD()
+
+	--Keybindings
 	love.keypressed = _SCENARIO_SELECT_KEYBINDINGS
 
+	--Background
+	background = {}
+	background.graphics = love.graphics.newImage("resources/menu/titlebackground.png")
+
+	--Menu windows
 	selected_window = {}
 	selected_window.graphics = love.graphics.newImage("resources/selected.png")
 	selected_window.lock = function(self)
@@ -13,6 +20,11 @@ function _SCENARIO_SELECT_LOAD()
 		selected_window.graphics = love.graphics.newImage("resources/selected.png")
 	end
 
+	function goToMainMenu()
+			change_state(1)
+	end
+
+	--Character selection section
 	characters_window = {}
 	characters_window.name = "Characters Window"
 	characters_window.graphics =  love.graphics.newImage("resources/selectcharacter.png")
@@ -25,16 +37,28 @@ function _SCENARIO_SELECT_LOAD()
 		currently_selected = selected_pchar
 		currently_selected.selected = true
 	end
+	characters_window.back = goToMainMenu
+
+	--Level selection section
 	level_window = {}
+	level_window.name = "Levels window"
 	level_window.graphics =  love.graphics.newImage("resources/selectlevel.png")
 	level_window.x = 8
 	level_window.y = 2
 	level_window.selected = true
+	level_window.trigger = function(self)
+		selected_window.lock()
+		selected_level.unlock()
+		currently_selected = selected_lvl
+		currently_selected.selected = true
+	end
+	level_window.back = goToMainMenu
 
 	--Menu movement
 	characters_window.right = level_window
 	level_window.left = characters_window
 
+	--Character Select
 	selected_character = {}
 	selected_character.graphics = love.graphics.newImage("resources/frameselected.png")
 	selected_character.lock = function(self)
@@ -44,9 +68,17 @@ function _SCENARIO_SELECT_LOAD()
 		selected_character.graphics = love.graphics.newImage("resources/frameselected.png")
 	end
 
-	background = {}
-	background.graphics = love.graphics.newImage("resources/menu/titlebackground.png")
+	--Level select
+	selected_level = {}
+	selected_level.graphics = love.graphics.newImage("resources/frameselected.png")
+	selected_level.lock = function(self)
+		selected_level.graphics = love.graphics.newImage("resources/frameselectedlocked.png")
+	end
+	selected_level.unlock = function(self)
+		selected_level.graphics = love.graphics.newImage("resources/frameselected.png")
+	end
 
+	--Draw selectable playable characters
 	characters_drawables = {}
 	init_x = characters_window.x + 1
 	init_y = characters_window.y + 1
@@ -85,16 +117,13 @@ function _SCENARIO_SELECT_LOAD()
 			if(last_pchar ~= nil) then
 				last_pchar.right = pchar
 				pchar.left = last_pchar
-			else
-				pchar.selected = true
-				selected_pchar = pchar
 			end
 			last_pchar = pchar
 		end
 
 		x = x + 1
 		column = column + 1
-		if x > 4 then
+		if x > init_x + 3 then
 			x = init_x
 			column = 0
 			y = y + 1
@@ -108,7 +137,79 @@ function _SCENARIO_SELECT_LOAD()
 
 	end
 
+	--Draw selectable playable characters
+	levels_drawables = {}
+	init_x_lvl = level_window.x + 1
+	init_y_lvl = level_window.y + 1
+	x = init_x_lvl
+	y = init_y_lvl
+
+	list_lvl = {}
+
+	row = 0
+	column = 0
+	last_lvl = nil
+	for name,value in ipairs(levels) do
+		frame = {}
+		frame.graphics = love.graphics.newImage("resources/frame.png")
+		frame.x = x
+		frame.y = y
+		frame.adjustX = column * 50
+		frame.adjustY = row * 30
+		if value ~= "empty" then
+			lvl = {}
+			lvl.name = value
+			lvl.selected = false
+			lvl.trigger = function(self)
+					selected_level.lock()
+					selected_window.unlock()
+					selected_lvl = self
+					currently_selected = level_window
+					currently_selected.selected = true
+			end
+			lvl.graphics = love.graphics.newImage("resources/enemies/"..value..".png")
+			lvl.quad = love.graphics.newQuad(0,0,80,80,pchar.graphics:getDimensions())
+			lvl.x = x
+			lvl.y = y
+			lvl.adjustX = column * 50 + 13
+			lvl.adjustY = row * 30 + 4
+			if(last_lvl ~= nil) then
+				last_lvl.right = lvl
+				lvl.left = last_lvl
+			end
+			last_lvl = lvl
+		end
+
+		x = x + 1
+		column = column + 1
+		if x > init_x_lvl + 3 then
+			x = init_x_lvl
+			column = 0
+			y = y + 1
+			row = row + 1
+		end
+
+		table.insert(levels_drawables,frame)
+		table.insert(levels_drawables,lvl)
+
+		table.insert(list_lvl,lvl)
+
+	end
+
+
+
+	--Initialize menu
+
+	--Default position cursor
 	currently_selected = characters_window
+	--Default character selected
+	selected_character.lock()
+	selected_pchar = list_char[1]
+	list_char[1].selected = true
+	--Default level selected
+	selected_level.lock()
+	selected_lvl = list_lvl[1]
+	list_lvl[1].selected = true
 
 end
 
@@ -142,6 +243,21 @@ function _SCENARIO_SELECT_DRAW()
 		draw_x = draw_x + 120
 	end
 
+	draw_x = init_x_lvl * cellSize
+	for index,value in ipairs(levels_drawables) do
+		if value.quad == nil then
+			love.graphics.draw(value.graphics, value.x * cellSize + value.adjustX, value.y * cellSize + value.adjustY)
+		else
+			love.graphics.draw(value.graphics, value.quad, value.x * cellSize + value.adjustX, value.y * cellSize + value.adjustY)
+		end
+
+		if value.selected == true then
+			love.graphics.draw(selected_level.graphics, value.x * cellSize + value.adjustX, value.y * cellSize + value.adjustY, 0, 1, 1, 24, 12)
+		end
+
+		draw_x = draw_x + 120
+	end
+
 end
 
 
@@ -165,6 +281,6 @@ _SCENARIO_SELECT_KEYBINDINGS = function(key)
 		currently_selected:trigger()
 	end
 	if key == "escape" then
-		currently_selected.window.unlock()
+		currently_selected.back()
 	end
 end
