@@ -1,5 +1,5 @@
-local player_selected = ''
-local level_selected = ''
+local selected_pchar = ''
+local selected_lvl = ''
 
 function _SCENARIO_SELECT_LOAD()
 
@@ -30,7 +30,7 @@ function _SCENARIO_SELECT_LOAD()
 	characters_window.graphics =  love.graphics.newImage("resources/selectcharacter.png")
 	characters_window.x = 0
 	characters_window.y = 2
-	characters_window.selected = true
+	characters_window.selected = false
 	characters_window.trigger = function(self)
 		selected_window.lock()
 		selected_character.unlock()
@@ -45,7 +45,7 @@ function _SCENARIO_SELECT_LOAD()
 	level_window.graphics =  love.graphics.newImage("resources/selectlevel.png")
 	level_window.x = 8
 	level_window.y = 2
-	level_window.selected = true
+	level_window.selected = false
 	level_window.trigger = function(self)
 		selected_window.lock()
 		selected_level.unlock()
@@ -54,9 +54,28 @@ function _SCENARIO_SELECT_LOAD()
 	end
 	level_window.back = goToMainMenu
 
+	--Fight button
+	fight = {}
+	fight.graphics = love.graphics.newImage("resources/fightbutton.png")
+	fight.quad = love.graphics.newQuad(0,0,160,100,fight.graphics:getDimensions())
+	fight.quadSelected = love.graphics.newQuad(160,0,160,100,fight.graphics:getDimensions())
+	fight.selected = false
+	fight.x = 7
+	fight.y = 7
+	fight.adjustY = 40
+	fight.trigger = function(self)
+		createBattle(selected_pchar.name)
+		change_state(3)
+	end
+
 	--Menu movement
 	characters_window.right = level_window
+	characters_window.down = fight
 	level_window.left = characters_window
+	level_window.down = fight
+	fight.up = characters_window
+	fight.left = characters_window
+	fight.right = level_window
 
 	--Character Select
 	selected_character = {}
@@ -202,6 +221,7 @@ function _SCENARIO_SELECT_LOAD()
 
 	--Default position cursor
 	currently_selected = characters_window
+	characters_window.selected = true
 	--Default character selected
 	selected_character.lock()
 	selected_pchar = list_char[1]
@@ -257,7 +277,11 @@ function _SCENARIO_SELECT_DRAW()
 
 		draw_x = draw_x + 120
 	end
-
+	if fight.selected == false then
+		love.graphics.draw(fight.graphics, fight.quad, fight.x * cellSize, fight.y * cellSize + fight.adjustY)
+	else
+		love.graphics.draw(fight.graphics, fight.quadSelected, fight.x * cellSize, fight.y * cellSize + fight.adjustY)
+	end
 end
 
 
@@ -273,6 +297,20 @@ _SCENARIO_SELECT_KEYBINDINGS = function(key)
 		if(currently_selected.left ~= nil) then
 			currently_selected.selected = false
 			currently_selected = currently_selected.left
+			currently_selected.selected = true
+		end
+	end
+	if key == "down" then
+		if(currently_selected.down ~= nil) then
+			currently_selected.selected = false
+			currently_selected = currently_selected.down
+			currently_selected.selected = true
+		end
+	end
+	if key == "up" then
+		if(currently_selected.up ~= nil) then
+			currently_selected.selected = false
+			currently_selected = currently_selected.up
 			currently_selected.selected = true
 		end
 	end
