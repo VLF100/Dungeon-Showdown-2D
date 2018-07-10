@@ -5,7 +5,7 @@ function generate_mage(init_x,init_y)
 
 	Mage = getPlayableCharacter(init_x,init_y)
 
-	Mage.graphics = newAnimation(love.graphics.newImage("resources/characters/mage.png"), 80, 63, 0.75)
+	Mage.graphics = newAnimation(love.graphics.newImage("resources/characters/mage.png"), 80, 80, 0.75)
 
 	Mage.startTurn = function(self)
 		love.keypressed = function(key)
